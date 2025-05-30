@@ -28,7 +28,7 @@ class GameScene extends Phaser.Scene {
 
   create (data) {
     this.wormHead = this.physics.add.sprite(1920 / 2, 1080 / 2, 'wormHead').setScale(0.10)
-    this.wormBody1 = this.physics.add.sprite (1920 / 2 - 60, 1080 / 2, 'wormBody').setScale(1)
+    this.wormBody1 = this.physics.add.sprite(1920 / 2 - 60, 1080 / 2, 'wormBody').setScale(1)
   }
 
   update (time, delta) {
@@ -38,33 +38,25 @@ class GameScene extends Phaser.Scene {
     const keyDownObj = this.input.keyboard.addKey('UP')
     if (keyRightObj.isDown === true) {
       this.direction = 2
-    }
-    else if (keyLeftObj.isDown === true) {
+    } else if (keyLeftObj.isDown === true) {
       this.direction = 1
-    }
-    else if (keyUpObj.isDown === true) {
+    } else if (keyUpObj.isDown === true) {
       this.direction = 3
-    }
-    else if (keyDownObj.isDown === true) {
+    } else if (keyDownObj.isDown === true) {
       this.direction = 4
-    }
-    else {
+    } else {
       // Do nothing
     }
     if (time > this.lastMovement + 250) {
       if (this.direction === 1) {
         this.wormHead.x = this.wormHead.x - 60
-      }
-      else if (this.direction === 2) {
+      } else if (this.direction === 2) {
         this.wormHead.x = this.wormHead.x + 60
-      }
-      else if (this.direction === 3) {
+      } else if (this.direction === 3) {
         this.wormHead.y = this.wormHead.y + 60
-      }
-      else if (this.direction === 4) {
+      } else if (this.direction === 4) {
         this.wormHead.y = this.wormHead.y - 60
-      }
-      else {
+      } else {
         // Do nothing
       }
       this.lastMovement = time
