@@ -11,6 +11,8 @@ class GameScene extends Phaser.Scene {
     super({ key: 'gameScene' })
     this.background = null
     this.wormHead = null
+    this.direction = 0
+    this.lastMovement = 0
   }
 
   init (data) {
@@ -21,47 +23,53 @@ class GameScene extends Phaser.Scene {
     console.log('Game Scene')
     // images
     this.load.image('wormHead', './assets/wormHead.png')
+    this.load.image('wormBody', './assets/darkGreenSquare.png')
   }
 
   create (data) {
-    this.snakeHead = this.physics.add.sprite(1920 / 2, 1080 / 2, 'snakeHead')
+    this.wormHead = this.physics.add.sprite(1920 / 2, 1080 / 2, 'wormHead').setScale(0.10)
+    this.wormBody1 = this.physics.add.sprite (1920 / 2 - 60, 1080 / 2, 'wormBody').setScale(1)
   }
+
   update (time, delta) {
     const keyLeftObj = this.input.keyboard.addKey('LEFT')
     const keyRightObj = this.input.keyboard.addKey('RIGHT')
-    const keyUpObj = this.input.keyboard.addKey('UP')
-    const keyDownObj = this.input.keyboard.addKey('DOWN')
-    let direction = 0
-    if (keyLeftObj.isDown === true) {
-      direction = 1
+    const keyUpObj = this.input.keyboard.addKey('DOWN')
+    const keyDownObj = this.input.keyboard.addKey('UP')
+    if (keyRightObj.isDown === true) {
+      this.direction = 2
     }
-    else if (keyRightObj === true) {
-      direction = 2
+    else if (keyLeftObj.isDown === true) {
+      this.direction = 1
     }
-    else if (keyUpObj === true) {
-      direction = 3
+    else if (keyUpObj.isDown === true) {
+      this.direction = 3
     }
-    else if (keyDownObj === true) {
-      direction = 4
-    }
-    else {
-      // Do nothing
-    }
-    if (direction === 1) {
-      this.wormHead.x - 15
-    }
-    else if (direction === 2) {
-      this.wormHead.x + 15
-    }
-    else if (direction === 3) {
-      this.wormHead.y + 15
-    }
-    else if (direction === 4) {
-      this.wormHead.y + 15
+    else if (keyDownObj.isDown === true) {
+      this.direction = 4
     }
     else {
       // Do nothing
     }
+    if (time > this.lastMovement + 250) {
+      if (this.direction === 1) {
+        this.wormHead.x = this.wormHead.x - 60
+      }
+      else if (this.direction === 2) {
+        this.wormHead.x = this.wormHead.x + 60
+      }
+      else if (this.direction === 3) {
+        this.wormHead.y = this.wormHead.y + 60
+      }
+      else if (this.direction === 4) {
+        this.wormHead.y = this.wormHead.y - 60
+      }
+      else {
+        // Do nothing
+      }
+      this.lastMovement = time
+    }
+    
   }
 }
 
