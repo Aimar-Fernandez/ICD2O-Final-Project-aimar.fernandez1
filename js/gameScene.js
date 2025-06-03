@@ -100,7 +100,7 @@ class GameScene extends Phaser.Scene {
       if (this.wormHead.x === this.leaf.x && this.wormHead.y === this.leaf.y) {
         while (this.leaf.x === this.wormHead.x && this.leaf.y === this.wormHead.y) {
           this.leaf.x = Math.floor(Math.floor(Math.random() * 1200 + 1) / 60) * 60 + 360
-          this.leaf.x = Math.floor(Math.floor(Math.random() * 960 + 1) / 60) * 60 + 60
+          this.leaf.y = Math.floor(Math.floor(Math.random() * 960 + 1) / 60) * 60 + 60
         }
         this.score += 1
       }
