@@ -40,6 +40,7 @@ class GameScene extends Phaser.Scene {
   }
 
   update (time, delta) {
+    // controls
     const keyLeftObj = this.input.keyboard.addKey('LEFT')
     const keyRightObj = this.input.keyboard.addKey('RIGHT')
     const keyUpObj = this.input.keyboard.addKey('DOWN')
@@ -66,7 +67,9 @@ class GameScene extends Phaser.Scene {
           this.wormBody3.y -= 60
         } else if (this.wormBody3.y < this.wormBody2.y) {
           this.wormBody3.y += 60
-        } else {}
+        } else {
+          // do nothing
+        }
       }
       // worm body 2
       if (this.wormBody2.x > this.wormHead.x) {
@@ -78,7 +81,9 @@ class GameScene extends Phaser.Scene {
           this.wormBody2.y -= 60
         } else if (this.wormBody2.y < this.wormHead.y) {
           this.wormBody2.y += 60
-        } else {}
+        } else {
+          // do nothing
+        }
       }
       // worm head
       if (this.direction === 1) {
@@ -101,7 +106,6 @@ class GameScene extends Phaser.Scene {
       }
       this.lastMovement = time
     }
-    
   }
 }
 
