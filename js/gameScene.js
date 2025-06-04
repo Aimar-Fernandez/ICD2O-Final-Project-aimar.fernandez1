@@ -15,11 +15,14 @@ class GameScene extends Phaser.Scene {
     this.score = 0
     this.scoreText = null
     this.scoreTextStyle = { font: '65px Arial', fill: '#000000', align: 'center' }
+    this.gameOverText = null
+    this.gameOverTextStyle = { font: '65px Arial', fill: '#ff0000', align: 'center'}
     this.wormHead = null
     this.wormBody2 = null
     this.wormBody3 = null
     this.wormBody4 = null
     this.wormBody5 = null
+    this.wormBody6 = null
     this.direction = 0
     this.lastMovement = 0
   }
@@ -39,14 +42,19 @@ class GameScene extends Phaser.Scene {
   }
 
   create (data) {
+    // images
     // this.background = this.add.image(1920 / 2 ,1080 / 2, 'background').setScale(1.0)
     this.leafImage = this.add.image(10, 10, 'leaf').setScale(0.15)
     this.leafImage.setOrigin(0, 0)
+    // sprites
     this.wormHead = this.physics.add.sprite(1920 / 2, 1080 / 2, 'wormHead').setScale(0.10)
-    //sprites
     this.wormBody2 = this.physics.add.sprite(1920 / 2 - 60, 1080 / 2, 'wormBody2').setScale(0.10)
     this.wormBody3 = this.physics.add.sprite(1920 / 2 - 120, 1080 / 2, 'wormBody3').setScale(0.10)
     this.leaf = this.physics.add.sprite(1920 / 2 + 240, 1080 / 2, 'leaf').setScale(0.10)
+    // groups
+    this.wormBodyGroup = this.physics.add.group()
+    this.wormBodyGroup.add(this.wormBody2)
+    this.wormBodyGroup.add(this.wormBody3)
     // text
     this.scoreText = this.add.text(10, 10, this.score.toString(), this.scoreTextStyle)
   }
@@ -69,6 +77,22 @@ class GameScene extends Phaser.Scene {
       // Do nothing
     }
     if (time > this.lastMovement + 250) {
+      // worm body 6
+      if (this.wormBody6 != null) {
+        if (this.wormBody6.x > this.wormBody5.x) {
+          this.wormBody6.x -= 60
+        } else if (this.wormBody6.x < this.wormBody5.x) {
+          this.wormBody6.x += 60
+        } else {
+          if (this.wormBody6.y > this.wormBody5.y) {
+            this.wormBody6.y -= 60
+          } else if (this.wormBody6.y < this.wormBody5.y) {
+            this.wormBody6.y += 60
+          } else {
+            // do nothing
+          }
+        }
+      }
       // worm body 5
       if (this.wormBody5 != null) {
         if (this.wormBody5.x > this.wormBody4.x) {
@@ -106,15 +130,11 @@ class GameScene extends Phaser.Scene {
         this.wormBody3.x -= 60
       } else if (this.wormBody3.x < this.wormBody2.x) {
         this.wormBody3.x += 60
-      } else {
-        if (this.wormBody3.y > this.wormBody2.y) {
-          this.wormBody3.y -= 60
-        } else if (this.wormBody3.y < this.wormBody2.y) {
-          this.wormBody3.y += 60
-        } else {
-          // do nothing
+      } else if (this.wormBody3.y > this.wormBody2.y) {
+        this.wormBody3.y -= 60
+      } else if (this.wormBody3.y < this.wormBody2.y) {
+        this.wormBody3.y += 60
         }
-      }
       // worm body 2
       if (this.wormBody2.x > this.wormHead.x) {
         this.wormBody2.x -= 60
@@ -141,6 +161,14 @@ class GameScene extends Phaser.Scene {
       } else {
         // Do nothing
       }
+      if (this.wormBody5 != null) {
+        if (this.wormHead.x === this.wormBodyGroup.x && this.wormHead.y === this.wormBodyGroup.y) {
+          this.physics.pause()
+          this.gameOverText = this.add.text(1920 / 2, 1080 / 2, 'Game Over!\nClick to play again', this.gameOverTextStyle).setOrigin(0.5)
+          this.gameOverText.setInteractive({ useHandCursor: true })
+          this.gameOverText.on('pointerdown', () => this.scene.start('gameScene'))
+        }
+      }
       if (this.wormHead.x === this.leaf.x && this.wormHead.y === this.leaf.y) {
         while (this.leaf.x === this.wormHead.x && this.leaf.y === this.wormHead.y) {
           this.leaf.x = Math.floor(Math.floor(Math.random() * 960 + 1) / 60) * 60 + 480
@@ -150,12 +178,18 @@ class GameScene extends Phaser.Scene {
         this.scoreText.setText(this.score.toString())
         if (this.wormBody4 === null) {
           this.wormBody4 = this.physics.add.sprite(this.wormBody3.x, this.wormBody3.y, 'wormBody2').setScale(0.10)
+          this.wormBodyGroup.add(this.wormBody4)
         } else if (this.wormBody5 === null) {
           this.wormBody5 = this.physics.add.sprite(this.wormBody4.x, this.wormBody4.y, 'wormBody3').setScale(0.10)
+          this.wormBodyGroup.add(this.wormBody5)
+        } else if (this.wormBody6 === null) {
+          this.wormBody6 = this.physics.add.sprite(this.wormBody5.x, this.wormBody5.y, 'wormBody2').setScale(0.10)
+          this.wormBodyGroup.add(this.wormBody6)
         } else {
           // empty for now
         }
       }
+      
       this.lastMovement = time
     }
   }
