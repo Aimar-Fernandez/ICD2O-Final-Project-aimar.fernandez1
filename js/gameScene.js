@@ -16,13 +16,15 @@ class GameScene extends Phaser.Scene {
     this.scoreText = null
     this.scoreTextStyle = { font: '65px Arial', fill: '#000000', align: 'center' }
     this.gameOverText = null
-    this.gameOverTextStyle = { font: '65px Arial', fill: '#ff0000', align: 'center'}
+    this.gameOverTextStyle = { font: '65px Arial', fill: '#ff0000', align: 'center' }
     this.wormHead = null
     this.wormBody2 = null
     this.wormBody3 = null
     this.wormBody4 = null
     this.wormBody5 = null
     this.wormBody6 = null
+    this.wormBody7 = null
+    this.wormBody8 = null
     this.direction = 0
     this.lastMovement = 0
   }
@@ -53,10 +55,16 @@ class GameScene extends Phaser.Scene {
     this.leaf = this.physics.add.sprite(1920 / 2 + 240, 1080 / 2, 'leaf').setScale(0.10)
     // groups
     this.wormBodyGroup = this.physics.add.group()
-    this.wormBodyGroup.add(this.wormBody2)
-    this.wormBodyGroup.add(this.wormBody3)
     // text
     this.scoreText = this.add.text(10, 10, this.score.toString(), this.scoreTextStyle)
+    // head and body collision
+    this.physics.add.collider(this.wormHead, this.wormBodyGroup, function (wormBodyCollide) {
+      this.physics.pause()
+      this.score = 0
+      this.gameOverText = this.add.text(1920 / 2, 1080 / 2, 'Game Over!\nClick to play again', this.gameOverTextStyle).setOrigin(0.5)
+      this.gameOverText.setInteractive({ useHandCursor: true })
+      this.gameOverText.on('pointerdown', () => this.scene.start('gameScene'))
+    }.bind(this))
   }
 
   update (time, delta) {
@@ -77,20 +85,40 @@ class GameScene extends Phaser.Scene {
       // Do nothing
     }
     if (time > this.lastMovement + 250) {
+      // worm body 8
+      if (this.wormBody8 != null) {
+        if (this.wormBody8.x > this.wormBody7.x) {
+          this.wormBody8.x -= 60
+        } else if (this.wormBody7.x < this.wormBody7.x) {
+          this.wormBody8.x += 60
+        } else if (this.wormBody7.y > this.wormBody7.y) {
+          this.wormBody8.y -= 60
+        } else if (this.wormBody7.y < this.wormBody7.y) {
+          this.wormBody8.y += 60
+        }
+      }
+      // worm body 7
+      if (this.wormBody7 != null) {
+        if (this.wormBody7.x > this.wormBody6.x) {
+          this.wormBody7.x -= 60
+        } else if (this.wormBody7.x < this.wormBody6.x) {
+          this.wormBody7.x += 60
+        } else if (this.wormBody7.y > this.wormBody6.y) {
+          this.wormBody7.y -= 60
+        } else if (this.wormBody7.y < this.wormBody6.y) {
+          this.wormBody7.y += 60
+        }
+      }
       // worm body 6
       if (this.wormBody6 != null) {
         if (this.wormBody6.x > this.wormBody5.x) {
           this.wormBody6.x -= 60
         } else if (this.wormBody6.x < this.wormBody5.x) {
           this.wormBody6.x += 60
-        } else {
-          if (this.wormBody6.y > this.wormBody5.y) {
-            this.wormBody6.y -= 60
-          } else if (this.wormBody6.y < this.wormBody5.y) {
-            this.wormBody6.y += 60
-          } else {
-            // do nothing
-          }
+        } else if (this.wormBody6.y > this.wormBody5.y) {
+          this.wormBody6.y -= 60
+        } else if (this.wormBody6.y < this.wormBody5.y) {
+          this.wormBody6.y += 60
         }
       }
       // worm body 5
@@ -99,15 +127,11 @@ class GameScene extends Phaser.Scene {
           this.wormBody5.x -= 60
         } else if (this.wormBody5.x < this.wormBody4.x) {
           this.wormBody5.x += 60
-        } else {
-          if (this.wormBody5.y > this.wormBody4.y) {
-            this.wormBody5.y -= 60
-          } else if (this.wormBody5.y < this.wormBody4.y) {
-            this.wormBody5.y += 60
-          } else {
-            // do nothing
-          }
-        }
+        } else if (this.wormBody5.y > this.wormBody4.y) {
+          this.wormBody5.y -= 60
+        } else if (this.wormBody5.y < this.wormBody4.y) {
+          this.wormBody5.y += 60
+        } 
       }
       // worm body 4
       if (this.wormBody4 != null) {
@@ -115,14 +139,10 @@ class GameScene extends Phaser.Scene {
           this.wormBody4.x -= 60
         } else if (this.wormBody4.x < this.wormBody3.x) {
           this.wormBody4.x += 60
-        } else {
-          if (this.wormBody4.y > this.wormBody3.y) {
-            this.wormBody4.y -= 60
-          } else if (this.wormBody4.y < this.wormBody3.y) {
-            this.wormBody4.y += 60
-          } else {
-            // do nothing
-          }
+        } else if (this.wormBody4.y > this.wormBody3.y) {
+          this.wormBody4.y -= 60
+        } else if (this.wormBody4.y < this.wormBody3.y) {
+          this.wormBody4.y += 60
         }
       }
       // worm body 3
@@ -134,20 +154,16 @@ class GameScene extends Phaser.Scene {
         this.wormBody3.y -= 60
       } else if (this.wormBody3.y < this.wormBody2.y) {
         this.wormBody3.y += 60
-        }
+      }
       // worm body 2
       if (this.wormBody2.x > this.wormHead.x) {
         this.wormBody2.x -= 60
       } else if (this.wormBody2.x < this.wormHead.x) {
         this.wormBody2.x += 60
-      } else {
-        if (this.wormBody2.y > this.wormHead.y) {
-          this.wormBody2.y -= 60
-        } else if (this.wormBody2.y < this.wormHead.y) {
-          this.wormBody2.y += 60
-        } else {
-          // do nothing
-        }
+      } else if (this.wormBody2.y > this.wormHead.y) {
+        this.wormBody2.y -= 60
+      } else if (this.wormBody2.y < this.wormHead.y) {
+        this.wormBody2.y += 60
       }
       // worm head
       if (this.direction === 1) {
@@ -161,13 +177,11 @@ class GameScene extends Phaser.Scene {
       } else {
         // Do nothing
       }
-      if (this.wormBody5 != null) {
-        if (this.wormHead.x === this.wormBodyGroup.x && this.wormHead.y === this.wormBodyGroup.y) {
-          this.physics.pause()
-          this.gameOverText = this.add.text(1920 / 2, 1080 / 2, 'Game Over!\nClick to play again', this.gameOverTextStyle).setOrigin(0.5)
-          this.gameOverText.setInteractive({ useHandCursor: true })
-          this.gameOverText.on('pointerdown', () => this.scene.start('gameScene'))
-        }
+      if (this.wormHead.x < 480 || this.wormHead.x > 1440 || this.wormHead.y < 60 || this.wormHead.y > 1020) {
+        this.physics.pause()
+        this.gameOverText = this.add.text(1920 / 2, 1080 / 2, 'Game Over!\nClick to play again', this.gameOverTextStyle).setOrigin(0.5)
+        this.gameOverText.setInteractive({ useHandCursor: true })
+        this.gameOverText.on('pointerdown', () => this.scene.start('gameScene'))
       }
       if (this.wormHead.x === this.leaf.x && this.wormHead.y === this.leaf.y) {
         while (this.leaf.x === this.wormHead.x && this.leaf.y === this.wormHead.y) {
@@ -185,11 +199,16 @@ class GameScene extends Phaser.Scene {
         } else if (this.wormBody6 === null) {
           this.wormBody6 = this.physics.add.sprite(this.wormBody5.x, this.wormBody5.y, 'wormBody2').setScale(0.10)
           this.wormBodyGroup.add(this.wormBody6)
+        } else if (this.wormBody7 === null) {
+          this.wormBody7 = this.physics.add.sprite(this.wormBody6.x, this.wormBody6.y, 'wormBody3').setScale(0.10)
+          this.wormBodyGroup.add(this.wormBody7)
+        } else if (this.wormBody7 === null) {
+          this.wormBody8 = this.physics.add.sprite(this.wormBody7.x, this.wormBody7.y, 'wormBody2').setScale(0.10)
+          this.wormBodyGroup.add(this.wormBody8)
         } else {
           // empty for now
         }
       }
-      
       this.lastMovement = time
     }
   }
