@@ -27,6 +27,7 @@ class GameScene extends Phaser.Scene {
     this.wormBody8 = null
     this.direction = 0
     this.lastMovement = 0
+    this.leafCollection = true
   }
 
   init (data) {
@@ -60,7 +61,10 @@ class GameScene extends Phaser.Scene {
     // head and body collision
     this.physics.add.collider(this.wormHead, this.wormBodyGroup, function (wormBodyCollide) {
       this.physics.pause()
+      this.leafCollection = false
       this.score = 0
+      this.wormBody4 = null; this.wormBody5 = null; this.wormBody6 = null; this.wormBody7 = null
+      this.wormBody8 = null
       this.gameOverText = this.add.text(1920 / 2, 1080 / 2, 'Game Over!\nClick to play again', this.gameOverTextStyle).setOrigin(0.5)
       this.gameOverText.setInteractive({ useHandCursor: true })
       this.gameOverText.on('pointerdown', () => this.scene.start('gameScene'))
@@ -84,16 +88,16 @@ class GameScene extends Phaser.Scene {
     } else {
       // Do nothing
     }
-    if (time > this.lastMovement + 250) {
+    if (time > this.lastMovement + 200) {
       // worm body 8
       if (this.wormBody8 != null) {
         if (this.wormBody8.x > this.wormBody7.x) {
           this.wormBody8.x -= 60
-        } else if (this.wormBody7.x < this.wormBody7.x) {
+        } else if (this.wormBody8.x < this.wormBody7.x) {
           this.wormBody8.x += 60
-        } else if (this.wormBody7.y > this.wormBody7.y) {
+        } else if (this.wormBody8.y > this.wormBody7.y) {
           this.wormBody8.y -= 60
-        } else if (this.wormBody7.y < this.wormBody7.y) {
+        } else if (this.wormBody8.y < this.wormBody7.y) {
           this.wormBody8.y += 60
         }
       }
@@ -183,7 +187,7 @@ class GameScene extends Phaser.Scene {
         this.gameOverText.setInteractive({ useHandCursor: true })
         this.gameOverText.on('pointerdown', () => this.scene.start('gameScene'))
       }
-      if (this.wormHead.x === this.leaf.x && this.wormHead.y === this.leaf.y) {
+      if (this.wormHead.x === this.leaf.x && this.wormHead.y === this.leaf.y && this.leafCollection === true) {
         while (this.leaf.x === this.wormHead.x && this.leaf.y === this.wormHead.y) {
           this.leaf.x = Math.floor(Math.floor(Math.random() * 960 + 1) / 60) * 60 + 480
           this.leaf.y = Math.floor(Math.floor(Math.random() * 960 + 1) / 60) * 60 + 60
@@ -202,7 +206,7 @@ class GameScene extends Phaser.Scene {
         } else if (this.wormBody7 === null) {
           this.wormBody7 = this.physics.add.sprite(this.wormBody6.x, this.wormBody6.y, 'wormBody3').setScale(0.10)
           this.wormBodyGroup.add(this.wormBody7)
-        } else if (this.wormBody7 === null) {
+        } else if (this.wormBody8 === null) {
           this.wormBody8 = this.physics.add.sprite(this.wormBody7.x, this.wormBody7.y, 'wormBody2').setScale(0.10)
           this.wormBodyGroup.add(this.wormBody8)
         } else {
