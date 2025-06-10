@@ -135,7 +135,7 @@ class GameScene extends Phaser.Scene {
           this.wormBody5.y -= 60
         } else if (this.wormBody5.y < this.wormBody4.y) {
           this.wormBody5.y += 60
-        } 
+        }
       }
       // worm body 4
       if (this.wormBody4 != null) {
