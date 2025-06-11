@@ -97,8 +97,8 @@ class GameScene extends Phaser.Scene {
         this.score = 0
         this.direction = 0
         this.wormBody4 = null; this.wormBody5 = null; this.wormBody6 = null; this.wormBody7 = null
-        this.wormBody8 = null; this.wormBody9 = null; this.wormBody10 = null; this.wormBody11 = null; 
-        this.wormBody12 = null; this.wormBody13 = null; this.wormBody14 = null; this.wormBody15 = null; 
+        this.wormBody8 = null; this.wormBody9 = null; this.wormBody10 = null; this.wormBody11 = null
+        this.wormBody12 = null; this.wormBody13 = null; this.wormBody14 = null; this.wormBody15 = null
         this.wormBody16 = null
         this.gameOverText = this.add.text(1920 / 2, 1080 / 2, 'Game Over!\nClick to play again', this.gameOverTextStyle).setOrigin(0.5)
         this.gameOver = false
