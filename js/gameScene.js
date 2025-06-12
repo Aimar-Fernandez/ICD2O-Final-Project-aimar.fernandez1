@@ -487,7 +487,7 @@ class GameScene extends Phaser.Scene {
         } else if (this.wormBody25 === null) {
           this.wormBody25 = this.physics.add.sprite(this.wormBody24.x, this.wormBody24.y, 'wormBody3').setScale(0.10)
           this.wormBodyGroup.add(this.wormBody25)
-        } 
+        }
       }
       this.lastMovement = time
     }
