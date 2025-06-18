@@ -14,13 +14,16 @@ class GameScene extends Phaser.Scene {
     this.leaf = null
     this.score = 0
     this.scoreText = null
-    this.scoreTextStyle = { font: '65px Arial', fill: '#000000', align: 'center' }
+    this.scoreTextStyle = { font: '65px Arial', fill: '#ffffff', align: 'center' }
     this.gameOverText = null
     this.gameOverTextStyle = { font: '65px Arial', fill: '#ff0000', align: 'center' }
     this.wormHead = null; this.wormBody2 = null; this.wormBody3 = null; this.wormBody4 = null
     this.wormBody5 = null; this.wormBody6 = null; this.wormBody7 = null; this.wormBody8 = null
     this.wormBody9 = null; this.wormBody10 = null; this.wormBody11 = null; this.wormBody12 = null
     this.wormBody13 = null; this.wormBody14 = null; this.wormBody15 = null; this.wormBody16 = null
+    this.wormBody17 = null; this.wormBody18 = null; this.wormBody19 = null; this.wormBody20 = null
+    this.wormBody21 = null; this.wormBody22 = null; this.wormBody23 = null; this.wormBody24 = null
+    this.wormBody25 = null
     this.direction = 0
     this.lastMovement = 0
     this.movement = true
@@ -29,7 +32,7 @@ class GameScene extends Phaser.Scene {
   }
 
   init (data) {
-    this.cameras.main.setBackgroundColor('#ffffff')
+    this.cameras.main.setBackgroundColor('#0d1117')
   }
 
   preload () {
@@ -45,7 +48,7 @@ class GameScene extends Phaser.Scene {
   create (data) {
     this.movement = true
     // images
-    // this.background = this.add.image(1920 / 2 ,1080 / 2, 'background').setScale(1.0)
+    this.background = this.add.image(1920 / 2, 1080 / 2, 'background').setScale(1.105)
     this.leafImage = this.add.image(10, 10, 'leaf').setScale(0.15)
     this.leafImage.setOrigin(0, 0)
     // sprites
@@ -56,7 +59,7 @@ class GameScene extends Phaser.Scene {
     // groups
     this.wormBodyGroup = this.physics.add.group()
     // text
-    this.scoreText = this.add.text(10, 10, this.score.toString(), this.scoreTextStyle)
+    this.scoreText = this.add.text(32, 15, this.score.toString(), this.scoreTextStyle)
     // head and body collision
     this.physics.add.collider(this.wormHead, this.wormBodyGroup, function (wormBodyCollide) {
       this.gameOver = true
@@ -99,7 +102,9 @@ class GameScene extends Phaser.Scene {
         this.wormBody4 = null; this.wormBody5 = null; this.wormBody6 = null; this.wormBody7 = null
         this.wormBody8 = null; this.wormBody9 = null; this.wormBody10 = null; this.wormBody11 = null
         this.wormBody12 = null; this.wormBody13 = null; this.wormBody14 = null; this.wormBody15 = null
-        this.wormBody16 = null
+        this.wormBody16 = null; this.wormBody17 = null; this.wormBody18 = null; this.wormBody19 = null
+        this.wormBody20 = null; this.wormBody21 = null; this.wormBody22 = null; this.wormBody23 = null
+        this.wormBody24 = null; this.wormBody25 = null
         this.gameOverText = this.add.text(1920 / 2, 1080 / 2, 'Game Over!\nClick to play again', this.gameOverTextStyle).setOrigin(0.5)
         this.gameOver = false
         this.gameOverText.setInteractive({ useHandCursor: true })
@@ -107,6 +112,114 @@ class GameScene extends Phaser.Scene {
       }
       // Movement
       if (this.movement === true) {
+        // worm body 25
+        if (this.wormBody25 != null) {
+          if (this.wormBody25.x > this.wormBody24.x) {
+            this.wormBody25.x -= 60
+          } else if (this.wormBody25.x < this.wormBody24.x) {
+            this.wormBody25.x += 60
+          } else if (this.wormBody25.y > this.wormBody24.y) {
+            this.wormBody25.y -= 60
+          } else if (this.wormBody25.y < this.wormBody24.y) {
+            this.wormBody25.y += 60
+          }
+        }
+        // worm body 24
+        if (this.wormBody24 != null) {
+          if (this.wormBody24.x > this.wormBody23.x) {
+            this.wormBody24.x -= 60
+          } else if (this.wormBody24.x < this.wormBody23.x) {
+            this.wormBody24.x += 60
+          } else if (this.wormBody24.y > this.wormBody23.y) {
+            this.wormBody24.y -= 60
+          } else if (this.wormBody24.y < this.wormBody23.y) {
+            this.wormBody24.y += 60
+          }
+        }
+        // worm body 23
+        if (this.wormBody23 != null) {
+          if (this.wormBody23.x > this.wormBody22.x) {
+            this.wormBody23.x -= 60
+          } else if (this.wormBody23.x < this.wormBody22.x) {
+            this.wormBody23.x += 60
+          } else if (this.wormBody23.y > this.wormBody22.y) {
+            this.wormBody23.y -= 60
+          } else if (this.wormBody23.y < this.wormBody22.y) {
+            this.wormBody23.y += 60
+          }
+        }
+        // worm body 22
+        if (this.wormBody22 != null) {
+          if (this.wormBody22.x > this.wormBody21.x) {
+            this.wormBody22.x -= 60
+          } else if (this.wormBody22.x < this.wormBody21.x) {
+            this.wormBody22.x += 60
+          } else if (this.wormBody22.y > this.wormBody21.y) {
+            this.wormBody22.y -= 60
+          } else if (this.wormBody22.y < this.wormBody21.y) {
+            this.wormBody22.y += 60
+          }
+        }
+        // worm body 21
+        if (this.wormBody21 != null) {
+          if (this.wormBody21.x > this.wormBody20.x) {
+            this.wormBody21.x -= 60
+          } else if (this.wormBody21.x < this.wormBody20.x) {
+            this.wormBody21.x += 60
+          } else if (this.wormBody21.y > this.wormBody20.y) {
+            this.wormBody21.y -= 60
+          } else if (this.wormBody21.y < this.wormBody20.y) {
+            this.wormBody21.y += 60
+          }
+        }
+        // worm body 20
+        if (this.wormBody20 != null) {
+          if (this.wormBody20.x > this.wormBody19.x) {
+            this.wormBody20.x -= 60
+          } else if (this.wormBody20.x < this.wormBody19.x) {
+            this.wormBody20.x += 60
+          } else if (this.wormBody20.y > this.wormBody19.y) {
+            this.wormBody20.y -= 60
+          } else if (this.wormBody20.y < this.wormBody19.y) {
+            this.wormBody20.y += 60
+          }
+        }
+        // worm body 19
+        if (this.wormBody19 != null) {
+          if (this.wormBody19.x > this.wormBody18.x) {
+            this.wormBody19.x -= 60
+          } else if (this.wormBody19.x < this.wormBody18.x) {
+            this.wormBody19.x += 60
+          } else if (this.wormBody19.y > this.wormBody18.y) {
+            this.wormBody19.y -= 60
+          } else if (this.wormBody19.y < this.wormBody18.y) {
+            this.wormBody19.y += 60
+          }
+        }
+        // worm body 18
+        if (this.wormBody18 != null) {
+          if (this.wormBody18.x > this.wormBody17.x) {
+            this.wormBody18.x -= 60
+          } else if (this.wormBody18.x < this.wormBody17.x) {
+            this.wormBody18.x += 60
+          } else if (this.wormBody18.y > this.wormBody17.y) {
+            this.wormBody18.y -= 60
+          } else if (this.wormBody18.y < this.wormBody17.y) {
+            this.wormBody18.y += 60
+          }
+        }
+        // worm body 17
+        if (this.wormBody17 != null) {
+          if (this.wormBody17.x > this.wormBody16.x) {
+            this.wormBody17.x -= 60
+          } else if (this.wormBody17.x < this.wormBody16.x) {
+            this.wormBody17.x += 60
+          } else if (this.wormBody17.y > this.wormBody16.y) {
+            this.wormBody17.y -= 60
+          } else if (this.wormBody17.y < this.wormBody16.y) {
+            this.wormBody17.y += 60
+          }
+        }
         // worm body 16
         if (this.wormBody16 != null) {
           if (this.wormBody16.x > this.wormBody15.x) {
@@ -347,6 +460,33 @@ class GameScene extends Phaser.Scene {
         } else if (this.wormBody16 === null) {
           this.wormBody16 = this.physics.add.sprite(this.wormBody15.x, this.wormBody15.y, 'wormBody2').setScale(0.10)
           this.wormBodyGroup.add(this.wormBody16)
+        } else if (this.wormBody17 === null) {
+          this.wormBody17 = this.physics.add.sprite(this.wormBody16.x, this.wormBody16.y, 'wormBody3').setScale(0.10)
+          this.wormBodyGroup.add(this.wormBody17)
+        } else if (this.wormBody18 === null) {
+          this.wormBody18 = this.physics.add.sprite(this.wormBody17.x, this.wormBody17.y, 'wormBody2').setScale(0.10)
+          this.wormBodyGroup.add(this.wormBody18)
+        } else if (this.wormBody19 === null) {
+          this.wormBody19 = this.physics.add.sprite(this.wormBody18.x, this.wormBody18.y, 'wormBody3').setScale(0.10)
+          this.wormBodyGroup.add(this.wormBody19)
+        } else if (this.wormBody20 === null) {
+          this.wormBody20 = this.physics.add.sprite(this.wormBody19.x, this.wormBody19.y, 'wormBody2').setScale(0.10)
+          this.wormBodyGroup.add(this.wormBody20)
+        } else if (this.wormBody21 === null) {
+          this.wormBody21 = this.physics.add.sprite(this.wormBody20.x, this.wormBody20.y, 'wormBody3').setScale(0.10)
+          this.wormBodyGroup.add(this.wormBody21)
+        } else if (this.wormBody22 === null) {
+          this.wormBody22 = this.physics.add.sprite(this.wormBody21.x, this.wormBody21.y, 'wormBody2').setScale(0.10)
+          this.wormBodyGroup.add(this.wormBody22)
+        } else if (this.wormBody23 === null) {
+          this.wormBody23 = this.physics.add.sprite(this.wormBody22.x, this.wormBody22.y, 'wormBody3').setScale(0.10)
+          this.wormBodyGroup.add(this.wormBody23)
+        } else if (this.wormBody24 === null) {
+          this.wormBody24 = this.physics.add.sprite(this.wormBody23.x, this.wormBody23.y, 'wormBody2').setScale(0.10)
+          this.wormBodyGroup.add(this.wormBody24)
+        } else if (this.wormBody25 === null) {
+          this.wormBody25 = this.physics.add.sprite(this.wormBody24.x, this.wormBody24.y, 'wormBody3').setScale(0.10)
+          this.wormBodyGroup.add(this.wormBody25)
         }
       }
       this.lastMovement = time
