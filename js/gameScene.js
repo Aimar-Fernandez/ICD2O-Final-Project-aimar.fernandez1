@@ -48,7 +48,7 @@ class GameScene extends Phaser.Scene {
   create (data) {
     this.movement = true
     // images
-    this.background = this.add.image(1920 / 2 ,1080 / 2, 'background').setScale(1.105)
+    this.background = this.add.image(1920 / 2, 1080 / 2, 'background').setScale(1.105)
     this.leafImage = this.add.image(10, 10, 'leaf').setScale(0.15)
     this.leafImage.setOrigin(0, 0)
     // sprites
